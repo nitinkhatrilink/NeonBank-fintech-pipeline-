@@ -1,0 +1,19 @@
+# dbt_project.yml
+name:    'neobank'
+version: '1.0.0'
+profile: 'neobank'
+model-paths:    ["models"]
+snapshot-paths: ["snapshots"]
+seed-paths:     ["seeds"]
+macro-paths:    ["macros"]
+test-paths:     ["tests"]
+models:
+  neobank:
+    staging:
+      +materialized: view        # views: no storage, always fresh, cheap for staging
+      +schema: staging
+    intermediate:
+      +materialized: ephemeral   # compiled inline as CTEs — no DB object, no schema needed
+    marts:
+      +materialized: table       # physical tables: fast reads for BI
+      +schema: marts
