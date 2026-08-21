@@ -1,0 +1,13 @@
+# models/staging/_sources.yml
+version: 2
+sources:
+  - name: raw
+    database: NEOBANK
+    schema:   RAW
+    tables:
+      - name: customers
+      - name: accounts
+      - name: transactions
+      - name: loans
+      - name: kyc_events
+      - name: fx_rates_raw
