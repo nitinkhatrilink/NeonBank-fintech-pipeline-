@@ -53,15 +53,7 @@ NeoBank operates with six disparate source systems. To test pipeline resilience,
 Fintech data requires strict access control. This pipeline enforces:
 - **RBAC**: Strict functional roles (`FT_LOADER`, `FT_TRANSFORMER`, `FT_ANALYST`, `FT_ANALYST_PII`) following least-privilege principles.
 - **Dynamic Data Masking**: PII (emails, DOB, full names) is masked at query time via Snowflake policies (e.g., analysts see `***@example.com`). Re-applied automatically via dbt post-hooks.
-- **Cost Control**: X-SMALL virtual warehouses with 60-second auto-suspend, guarded by account-level Resource Monitors.
-
----
-
-## ✅ Testing & CI/CD
-- **Data Quality**: 20+ dbt tests block bad data from reaching the Gold layer (generic tests: `unique`, `not_null`, `accepted_values`, `relationships`, plus custom SQL assertions like "no future-dated transactions").
-- **Source Freshness**: Automated checks to ensure feeds (like daily FX rates) aren't stale.
-- **CI/CD**: GitHub Actions runs `dbt build` on every pull request and on a daily cron schedule.
-- **Documentation**: Living data dictionary and lineage graphs generated via `dbt docs`.
+- **Cost Control**: X-SMALL virtual warehouses with 60-second auto-suspend, guarded by account-level Resource Monitors
 
 ---
 
@@ -74,12 +66,6 @@ The Gold tables connect to Power BI Desktop via Import mode.
 
 ---
 
-## 🏃 How to Run
-1. **Generate Data**: Run `python generate_data.py` to create the raw CSV/JSON files.
-2. **Load to Snowflake**: Execute the provided SQL scripts to set up stages, roles, and run `COPY INTO`.
-3. **Transform**: Run `dbt build` to execute models, tests, and snapshots.
-4. **Document**: Run `dbt docs generate && dbt docs serve`.
-5. **Visualize**: Connect Power BI to the Snowflake Gold schema using your assigned role.
 
 ---
 *Built to refine hands-on skills in Snowflake, dbt, and Power BI. Feedback and PRs are welcome.*
